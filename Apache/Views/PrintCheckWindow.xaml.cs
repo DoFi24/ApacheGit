@@ -19,9 +19,37 @@ namespace Apache.Views
     /// </summary>
     public partial class PrintCheckWindow : Window
     {
-        public PrintCheckWindow()
+        public PrintCheckWindow(SalePageViewModel model)
         {
             InitializeComponent();
+            DataContext = new PrintCheckWindowViewModel(model);
+            DateTimeStr.Text = DateTime.UtcNow.ToString("HH:mm dd.MMMM.yyyy");
+        }
+        private void PrintMethod()
+        {
+            try
+            {
+                new PrintDialog().PrintVisual(printGrid, "Печать чека");
+            }
+            catch
+            {
+
+            }
+        }
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PrintMethod();
+            Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -1,0 +1,151 @@
+﻿<Page x:Class="Apache.Views.AdminPages.ProductBuyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Apache.Views.AdminPages"
+      xmlns:mt="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:vm="clr-namespace:Apache.ViewModels"      
+      d:DesignHeight="850" d:DesignWidth="810"
+      d:DataContext="{d:DesignInstance vm:ProductBuyPageViewModel}"
+      mc:Ignorable="d" 
+      Title="ProductBuyPage">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1"  Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="15" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Количество" Grid.Row="1" Grid.Column="1" 
+                                Style="{DynamicResource MainSalePageTextBlock}"/>
+                <TextBox Grid.Column="1" Text="{Binding ProductBuyCount,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Width="auto" VerticalAlignment="Bottom" 
+                                Style="{DynamicResource LoginPasswordTextBox}" />
+            </Grid>
+            <Grid Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="15" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Товар" Grid.Row="1" Grid.Column="1" 
+                           Style="{DynamicResource MainSalePageTextBlock}"/>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding ProductCollection,UpdateSourceTrigger=PropertyChanged}"
+                          Grid.Row="1" MaxWidth="500" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}" 
+                          Template="{DynamicResource MainPageComboBox}" FontSize="18">
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="15" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Цена" Grid.Row="1" Grid.Column="1" 
+                           Style="{DynamicResource MainSalePageTextBlock}"/>
+                <TextBox Grid.Column="1" Text="{Binding ProductBuyPrice,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Width="auto" VerticalAlignment="Bottom" 
+                                Style="{DynamicResource LoginPasswordTextBox}" />
+            </Grid>
+            <Button Grid.RowSpan="2" Width="240" BorderThickness=".5" VerticalAlignment="Center" 
+                                Command="{Binding AddProductPrihodCommand}" FontSize="34"
+                                Background="#4DBAE9" Content="Добавить" FontWeight="DemiBold"
+                        Margin="0 0 0 10" Grid.Column="2"/>
+        </Grid>
+        <Border Margin="10 0 10 5" Background="#4DBAE9" 
+                CornerRadius="17" Grid.Row="1">
+            <Grid Margin="0 17 0 0 " Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="16*" />
+                </Grid.RowDefinitions>
+                <Grid Margin="0 -1 0 0" Background="#4DBAE9">
+                    <TextBlock Text="Приходы" Style="{DynamicResource KassaPageTextBlock}"/>
+                    <StackPanel HorizontalAlignment="Center" Margin="0 0 0 5" Orientation="Horizontal">
+                        <Grid Width="350">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="2" VerticalAlignment="Center" 
+                                       FontSize="18" FontWeight="DemiBold" Foreground="White" 
+                                       HorizontalAlignment="Center" Text="{Binding CurrentPageIndexProductBuy}"/>
+                            <TextBlock Grid.Column="3" VerticalAlignment="Center" 
+                                       FontSize="18" FontWeight="DemiBold" Foreground="White"
+                                       HorizontalAlignment="Center"  Text="из"/>
+                            <TextBlock Grid.Column="4" VerticalAlignment="Center" 
+                                       FontSize="18" FontWeight="DemiBold" Foreground="White"
+                                       HorizontalAlignment="Center"  Text="{Binding PageCountProductBuy}"/>
+                            <Button Grid.Column="1" Style="{DynamicResource NextBeforeNavigationButton}"
+                                    Command="{Binding PreviousPageProductPrihodCommand}">
+                                <mt:PackIcon Kind="NavigateBefore"/>
+                            </Button>
+                            <Button Style="{DynamicResource NextBeforeNavigationButton}" Grid.Column="5"
+                                    Command="{Binding NextPageProductPrihodCommand}">
+                                <mt:PackIcon Kind="NavigateNext"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                    <mt:PackIcon Kind="Food" Width="45px" Height="45px" HorizontalAlignment="Right" 
+                                 Margin="0 -15 20 0" VerticalAlignment="Center" Foreground="White"/>
+                </Grid>
+                <DataGrid Grid.Row="1" Margin="3" ItemsSource="{Binding ProductsPrihodCollection,UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedProductPrihod,UpdateSourceTrigger=PropertyChanged}"
+                          x:Name="datagrid" Style="{DynamicResource KassaPageDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Products.Name}" Header="Товар"/>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Quantity}" Header="Количество"/>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Price}" Header="Цена"/>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding PrihodDate,StringFormat=dd.MM.yyyy}" Header="Дата"/>
+                        <DataGridTemplateColumn MinWidth="135" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Background="#EA5567" 
+                                                        Command="{Binding Path=DataContext.DeleteProductPrihodCommand,       
+                                                        RelativeSource= {RelativeSource FindAncestor,
+                                                        AncestorType={x:Type DataGrid}}}"
+                                                        Content="Удалить" Width="131px" Height="30"
+                                                        FontSize="14" Foreground="White"
+                                                        Style="{DynamicResource MainSalePageButton}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

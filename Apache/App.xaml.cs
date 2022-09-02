@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿global using Apache.Infrastructure;
+global using Apache.ViewModels;
+global using Apache.Models;
 using System.Windows;
 
 namespace Apache
@@ -13,5 +10,6 @@ namespace Apache
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

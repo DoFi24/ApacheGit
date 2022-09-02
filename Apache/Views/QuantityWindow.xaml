@@ -3,10 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Apache.Views"
-        mc:Ignorable="d"
-        Title="QuantityWindow" Height="450" Width="800">
+        xmlns:local="clr-namespace:Apache.Views" WindowStyle="None"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="QuantityWindow" Height="300" Width="750">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".7*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Viewbox  Grid.ColumnSpan="2" >
+            <TextBlock Text="Пицца" x:Name="ProductName" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35"/>
+        </Viewbox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Left" FontSize="18" Margin="0 0 10 0" VerticalAlignment="Center" Text="Количество :"/>
+            <TextBox BorderBrush="DarkGreen" x:Name="CountTextBox" BorderThickness="1" Height="60" Width="200" Text="1"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button Margin="5" Content="+1" Height="60" FontSize="25" Click="CountClick" Width="60"/>
+            <Button Margin="5" Content="+3" Height="60"  FontSize="25" Click="CountClick" Width="60"/>
+            <Button Margin="5" Content="+5" Height="60"  FontSize="25" Click="CountClick" Width="60"/>
+            <Button Margin="5" Foreground="Red" Height="60"  FontSize="25" Click="CountClick" Content="-1" Width="60"/>
+            <Button Margin="5" Foreground="Red" Height="60"  FontSize="25" Click="CountClick" Content="-3" Width="60"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1">
+            <TextBlock HorizontalAlignment="Left" FontSize="18" Margin="0 0 10 0" VerticalAlignment="Center" Text="Скидка (%) :"/>
+            <TextBox BorderBrush="DarkGreen" x:Name="DiscountTextBox" BorderThickness="1" Height="60"  Width="200" Text="0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <Button Margin="5" Content="+1" Height="60" FontSize="25" Click="DisClick" Width="60"/>
+            <Button Margin="5" Content="+3" Height="60"  FontSize="25" Click="DisClick" Width="60"/>
+            <Button Margin="5" Content="+5" Height="60"  FontSize="25" Click="DisClick" Width="60"/>
+            <Button Margin="5" Foreground="Red" Height="60"  FontSize="25" Click="DisClick" Content="-1" Width="60"/>
+            <Button Margin="5" Foreground="Red" Height="60"  FontSize="25" Click="DisClick" Content="-3" Width="60"/>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" Orientation="Horizontal" Grid.Row="3">
+            <Button Margin="0" Width="200" Content="Подтвердить" FontSize="25" Height="60" Style="{DynamicResource MessageDialogButton}" Click="Button_Click_1"/>
+            <Button Margin="20 0 0 0" Width="200" Content="Отменить" FontSize="25" Height="60" Style="{DynamicResource MessageDialogButton}" Click="Button_Click"/>
+            <Button Margin="20 0 0 0" Width="200" Content="Удалить" Foreground="Red" FontSize="25" Height="60" Style="{DynamicResource MessageDialogButton}" Click="DeleteClick"/>
+        </StackPanel>
     </Grid>
 </Window>

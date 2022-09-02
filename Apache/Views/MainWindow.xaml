@@ -4,9 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apache"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:vm="clr-namespace:Apache.ViewModels"
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
+        d:DesignHeight="850" d:DesignWidth="810"
+        mc:Ignorable="d" WindowStyle="None" WindowState="Maximized"
+        Title="MainWindow" Height="900" Width="900">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="25" VerticalAlignment="Center" 
+                       HorizontalAlignment="Center" Text="{Binding StaffName}"/>
+            <Button Grid.Column="1" Background="ForestGreen" FontSize="33" Command="{Binding ShowTablePageCommand}"
+                    VerticalContentAlignment="Center" Content="{Binding TableName}"/>
+            <Button Grid.Column="2" Click="Button_Click"  Style="{DynamicResource ExitDialogButton}"/>
+        </Grid>
+        <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" Grid.Row="1"/>
     </Grid>
 </Window>

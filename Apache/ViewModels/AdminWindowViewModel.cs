@@ -8,6 +8,9 @@ namespace Apache.ViewModels
 {
     public class AdminWindowViewModel
     {
+        public AdminWindowViewModel()
+        {
 
+        }
     }
 }

@@ -1,0 +1,32 @@
+﻿<Window x:Class="Apache.Views.DiscountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Apache.Views"
+        mc:Ignorable="d" WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Title="QuantityWindow" Height="300" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Left" FontSize="18" Margin="0 0 10 0" VerticalAlignment="Center" Text="Скидка в процентах :"/>
+            <TextBox BorderBrush="DarkGreen" x:Name="CountTextBox" BorderThickness="1" Width="250" Text="1"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button Margin="10" Content="+1" Click="Click1" Width="80"/>
+            <Button Margin="10" Content="+3" Click="Click3" Width="80"/>
+            <Button Margin="10" Content="+5" Click="Click5" Width="80"/>
+            <Button Margin="10" Foreground="Red" Click="ClickM1" Content="-1" Width="80"/>
+            <Button Margin="10" Foreground="Red" Click="ClickM3" Content="-3" Width="80"/>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2">
+            <Button Margin="0" Width="200" Content="Подтвердить" FontSize="25" Height="60" Style="{DynamicResource MessageDialogButton}" Click="Button_Click_1"/>
+            <Button Margin="20 0 0 0" Width="200" Content="Отменить" FontSize="25" Height="60" Style="{DynamicResource MessageDialogButton}" Click="Button_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

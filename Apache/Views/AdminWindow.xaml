@@ -4,9 +4,54 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Apache.Views"
-        mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800">
+        xmlns:vm="clr-namespace:Apache.ViewModels"
+        d:DataContext="{d:DesignInstance vm:AdminWindowViewModel}"
+        xmlns:mt="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" WindowStyle="None" WindowState="Maximized"
+        Title="AdminWindow" Height="900" Width="900">
     <Grid>
-        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90px" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50px" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal" Height="45" Width="45"
+                    HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Button Click="Button_Click" Style="{DynamicResource ToolBarMainWindowButton}">
+                        <mt:PackIcon Foreground="DarkGreen" Width="30" Height="30" Kind="Lock"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <StackPanel Background="#F3F3F3"/>
+            <StackPanel Grid.Row="1">
+                <RadioButton Uid="0" Click="ChangePageClick" Style="{DynamicResource MainWindowMenuRadioButton}">
+                    <mt:PackIcon Height="50px" Width="50px" Kind="Person"/>
+                </RadioButton>
+                <RadioButton Uid="1" Click="ChangePageClick" Style="{DynamicResource MainWindowMenuRadioButton}">
+                    <mt:PackIcon Height="50px" Width="50px" Kind="FoodForkCup"/>
+                </RadioButton>
+                <RadioButton Uid="2" Click="ChangePageClick" Style="{DynamicResource MainWindowMenuRadioButton}">
+                    <mt:PackIcon Height="50px" Width="50px" Kind="HandCoin"/>
+                </RadioButton>
+                <RadioButton Uid="3" Click="ChangePageClick" Style="{DynamicResource MainWindowMenuRadioButton}">
+                    <mt:PackIcon Height="50px" Width="50px" Kind="Reschedule"/>
+                </RadioButton>
+                <RadioButton Uid="4" Click="ChangePageClick" Style="{DynamicResource MainWindowMenuRadioButton}">
+                    <mt:PackIcon Height="50px" Width="50px" Kind="History"/>
+                </RadioButton>
+                <RadioButton Uid="5" Click="ChangePageClick" Style="{DynamicResource MainWindowMenuRadioButton}">
+                    <mt:PackIcon Height="50px" Width="50px" Kind="Settings"/>
+                </RadioButton>
+            </StackPanel>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Frame Name="MainFrame" NavigationUIVisibility="Hidden"/>
+            </Grid>
+            <GridSplitter  Width="2" Background="Green" Grid.RowSpan="2"/>
+        </Grid>
     </Grid>
 </Window>

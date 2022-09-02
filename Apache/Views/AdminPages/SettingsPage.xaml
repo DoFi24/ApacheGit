@@ -1,0 +1,43 @@
+﻿<Page x:Class="Apache.Views.AdminPages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Apache.Views.AdminPages"
+      xmlns:mt="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:vm="clr-namespace:Apache.ViewModels"      
+      d:DesignHeight="850" d:DesignWidth="810"
+      d:DataContext="{d:DesignInstance vm:AccountPageViewModel}"
+      mc:Ignorable="d" 
+      Title="SettingsPage">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="15" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Обслуживание в процентах от стоимости :" Grid.Row="1" Grid.Column="1" 
+                                Style="{DynamicResource MainSalePageTextBlock}"/>
+            <TextBox Grid.Column="1" x:Name="ServiceDiscountTextBox" Grid.Row="1" Width="auto" VerticalAlignment="Bottom" 
+                                Style="{DynamicResource LoginPasswordTextBox}" />
+        </Grid>
+        <Button Grid.Row="4" Grid.Column="1" Margin="50" Click="Button_Click" Content="Сохранить"/>
+    </Grid>
+</Page>

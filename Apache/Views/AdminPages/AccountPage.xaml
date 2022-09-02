@@ -1,0 +1,154 @@
+﻿<Page x:Class="Apache.Views.AdminPages.AccountPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Apache.Views.AdminPages"
+      xmlns:mt="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:vm="clr-namespace:Apache.ViewModels"      
+      d:DesignHeight="850" d:DesignWidth="810"
+      d:DataContext="{d:DesignInstance vm:AccountPageViewModel}"
+      mc:Ignorable="d" 
+      Title="AccountPage">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="15" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Ф.И.О." Grid.Row="1" Grid.Column="1" 
+                                Style="{DynamicResource MainSalePageTextBlock}"/>
+                <TextBox Grid.Column="1" Text="{Binding UserName,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Width="auto" VerticalAlignment="Bottom" 
+                                Style="{DynamicResource LoginPasswordTextBox}" />
+            </Grid>
+            <Grid Grid.Column="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="15" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Пин-код (4)" Grid.Row="1" Grid.Column="1" 
+                                Style="{DynamicResource MainSalePageTextBlock}"/>
+                <TextBox Grid.Column="1" Text="{Binding Password,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Width="auto" VerticalAlignment="Bottom" 
+                                Style="{DynamicResource LoginPasswordTextBox}" />
+            </Grid>
+            <Grid Grid.Row="1" Grid.ColumnSpan="2"> 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="10" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Роль" Grid.Row="1" Grid.Column="1" 
+                                Style="{DynamicResource MainSalePageTextBlock}"/>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding RolesCollection,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"
+                          Grid.Row="1" MaxWidth="500" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedRole, UpdateSourceTrigger=PropertyChanged}" 
+                          Template="{DynamicResource MainPageComboBox}" FontSize="18">
+                </ComboBox>
+            </Grid>
+            <Button Width="200" BorderThickness=".5" VerticalAlignment="Center" Height="50"
+                                Command="{Binding UpdateUsersCommand}" FontSize="26"
+                                Background="#4DBAE9" Content="Изменить" FontWeight="DemiBold"
+                        Margin="0 20 0 0" Grid.Column="2" />
+            <Button Grid.Row="1" Width="200" BorderThickness=".5" VerticalAlignment="Center" 
+                                Command="{Binding AddUsersCommand}" FontSize="26" Height="50"
+                                Background="#4DBAE9" Content="Добавить" FontWeight="DemiBold"
+                        Margin="0 0 0 10" Grid.Column="2"/>
+        </Grid>
+        <Border Margin="10 0 10 5" Background="#4DBAE9" 
+                CornerRadius="17" Grid.Row="1">
+            <Grid Margin="0 17 0 0 " Background="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="14*" />
+                </Grid.RowDefinitions>
+                <Grid Margin="0 -1 0 0" Background="#4DBAE9">
+                    <TextBlock Text="Сотрудники" Style="{DynamicResource KassaPageTextBlock}"/>
+                    <StackPanel HorizontalAlignment="Center" Margin="0 0 0 5" Orientation="Horizontal">
+                        <Grid Width="350">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="2" VerticalAlignment="Center" 
+                                       FontSize="18" FontWeight="DemiBold" Foreground="White" 
+                                       HorizontalAlignment="Center" Text="{Binding CurrentPageIndexUser}"/>
+                            <TextBlock Grid.Column="3" VerticalAlignment="Center" 
+                                       FontSize="18" FontWeight="DemiBold" Foreground="White"
+                                       HorizontalAlignment="Center" Text="из"/>
+                            <TextBlock Grid.Column="4" VerticalAlignment="Center" 
+                                       FontSize="18" FontWeight="DemiBold" Foreground="White"
+                                       HorizontalAlignment="Center"  Text="{Binding PageCountUser}"/>
+                            <Button Grid.Column="1" Style="{DynamicResource NextBeforeNavigationButton}"
+                                    Command="{Binding PreviousPageUsersCommand}">
+                                <mt:PackIcon Kind="NavigateBefore"/>
+                            </Button>
+                            <Button Style="{DynamicResource NextBeforeNavigationButton}" Grid.Column="5"
+                                    Command="{Binding NextPageUsersCommand}">
+                                <mt:PackIcon Kind="NavigateNext"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                    <mt:PackIcon Kind="Account" Width="45px" Height="45px" HorizontalAlignment="Right" 
+                                 Margin="0 -15 20 0" VerticalAlignment="Center" Foreground="White"/>
+                </Grid>
+                <DataGrid Grid.Row="1" Margin="3" ItemsSource="{Binding UsersCollection,UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedUser,UpdateSourceTrigger=PropertyChanged}"
+                          x:Name="datagrid" Style="{DynamicResource KassaPageDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Name}" Header="Ф.И.О."/>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding PinCode}" Header="Пин-код"/>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Role}" Header="Роль"/>
+                        <DataGridTemplateColumn MinWidth="135" Width="150">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Background="#EA5567" 
+                                                        Command="{Binding Path=DataContext.DeleteUsersCommand,       
+                                                        RelativeSource= {RelativeSource FindAncestor,
+                                                        AncestorType={x:Type DataGrid}}}"
+                                                        Content="Удалить" Width="131px" Height="30"
+                                                        FontSize="14" Foreground="White"
+                                                        Style="{DynamicResource MainSalePageButton}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

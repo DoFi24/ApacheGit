@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Apache.ViewModels;
+using System.Windows;
 
 namespace Apache.Views
 {
@@ -10,6 +11,7 @@ namespace Apache.Views
         public AuthorizationWindow()
         {
             InitializeComponent();
+            DataContext = new AuthorizationWindowViewModel(this);
         }
     }
 }
