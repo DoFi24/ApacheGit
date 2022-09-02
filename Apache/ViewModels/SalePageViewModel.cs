@@ -287,7 +287,7 @@ namespace Apache.ViewModels
                     {
                         var check = db.Checks!.First(s => s.Id == _currentCheck.Id);
                         check.StaffsId = StaticFields.currrentStaff.Id;
-                        check.IsActive = 1;
+                        check.IsActive = 0;
                         check.TotalSum = ItogPrice;
                         check.PlacesId = _currentPlace!.Id;
                         check.PrintDate = System.DateTime.UtcNow;
@@ -340,13 +340,12 @@ namespace Apache.ViewModels
                                     ProductsPrihodId = s.Products!.Id,
                                     Quantity = s.Quantity,
                                 }));
-                        db.SaveChanges();
                     }
                     else
                     {
                         var check = db.Checks!.First(s => s.Id == _currentCheck.Id);
                         check.StaffsId = StaticFields.currrentStaff.Id;
-                        check.IsActive = 1;
+                        check.IsActive = 0;
                         check.TotalSum = ItogPrice;
                         check.PlacesId = _currentPlace!.Id;
                         check.PrintDate = System.DateTime.UtcNow;

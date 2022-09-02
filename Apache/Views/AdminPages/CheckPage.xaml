@@ -5,9 +5,89 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Apache.Views.AdminPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:mt="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:vm="clr-namespace:Apache.ViewModels"      
+      d:DesignHeight="850" d:DesignWidth="810"
+      d:DataContext="{d:DesignInstance vm:CheckPageViewModel}"
       Title="CheckPage">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid Background="#4DBAE9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid Width="350">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" 
+                                       FontSize="18" FontWeight="DemiBold" Foreground="White" 
+                                       HorizontalAlignment="Center" Text="{Binding CurrentPageIndexCheck}"/>
+                <TextBlock Grid.Column="3" VerticalAlignment="Center" 
+                                       FontSize="18" FontWeight="DemiBold" Foreground="White"
+                                       HorizontalAlignment="Center" Text="из"/>
+                <TextBlock Grid.Column="4" VerticalAlignment="Center" 
+                                       FontSize="18" FontWeight="DemiBold" Foreground="White"
+                                       HorizontalAlignment="Center"  Text="{Binding PageCountCheck}"/>
+                <Button Grid.Column="1" Style="{DynamicResource NextBeforeNavigationButton}"
+                                    Command="{Binding PreviousPageChecksCommand}">
+                    <mt:PackIcon Kind="NavigateBefore"/>
+                </Button>
+                <Button Style="{DynamicResource NextBeforeNavigationButton}" Grid.Column="5"
+                                    Command="{Binding NextPageChecksCommand}">
+                    <mt:PackIcon Kind="NavigateNext"/>
+                </Button>
+            </Grid>
+            <ListBox Grid.Row="1" Padding="0" ItemsSource="{Binding AllChecksCollection}" SelectedItem="{Binding SelectedCheck}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid MinWidth="400" Background="{Binding IsActive}" Height="60">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="22" Text="Номер чека : "/>
+                                <Viewbox MaxWidth="70">
+                                    <TextBlock FontSize="22" Foreground="DarkGreen" Text="{Binding Id}"/>
+                                </Viewbox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock FontSize="22" Text="Стоимость : "/>
+                                <Viewbox MaxWidth="70">
+                                    <TextBlock FontSize="22" Foreground="DarkGreen" Text="{Binding TotalSum,StringFormat=0c}"/>
+                                </Viewbox>
+                            </StackPanel>
+                            <TextBlock Grid.Row="1" FontSize="22" Text="Дата печати :"/>
+                            <TextBlock FontSize="22" Grid.Row="1" Grid.Column="1" Foreground="DarkGreen" Text="{Binding PrintDate,StringFormat=mm:HH dd.MM.yyyy}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <GridSplitter/>
+        <DataGrid Background="White" ItemsSource="{Binding SelectedCheck.ChecksList}" 
+                  Style="{DynamicResource MainSalePageDataGrid}" Grid.Column="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Binding="{Binding ProductName }" Header="Наим-ние"/>
+                <DataGridTextColumn Width="*" Binding="{Binding Quantity }" Header="Кол-во"/>
+                <DataGridTextColumn Width="*" Binding="{Binding Price }" Header="Цена"/>
+                <DataGridTextColumn Width="*" Binding="{Binding Discount}" Header="Скидка"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

@@ -93,7 +93,6 @@
                       SelectedItem="{Binding InSaleProduct}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Binding="{Binding Products.ProductsName}" Header="Имя"/>
-                    <DataGridTextColumn Width="*" Binding="{Binding Price}" Header="Цена"/>
                     <DataGridTextColumn Width="*" Binding="{Binding Quantity}" Header="Кол-во"/>
                     <DataGridTextColumn Width="*" Binding="{Binding Discount}" Header="Скидка"/>
                     <DataGridTextColumn Width="*" Binding="{Binding Itog}" Header="Итог"/>

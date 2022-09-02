@@ -360,6 +360,7 @@ namespace Apache.ViewModels
                 var products = db.Products;
                 ProductCollection = new ObservableCollection<Products>(products!.Take(12));
                 PageCountProduct = Convert.ToInt32(Math.Ceiling(products!.Count() / 12m));
+                CurrentPageIndexProduct = 1;
             }
         }
         private async void LoadCategories()
@@ -376,6 +377,7 @@ namespace Apache.ViewModels
                 var categories = db.Categories;
                 CategoryAddCollection = new ObservableCollection<Categories>(categories!.Take(12));
                 PageCountCategory = Convert.ToInt32(Math.Ceiling(categories!.Count() / 12m));
+                CurrentPageIndexCategory = 1;
             }
         }
     }

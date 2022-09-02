@@ -21,6 +21,7 @@ namespace Apache.Views
             try
             {
                 new PrintDialog().PrintVisual(printGrid, "Печать чека");
+                Close();
             }
             catch
             {

@@ -19,9 +19,11 @@ namespace Apache.Views
     /// </summary>
     public partial class PrintCheckWindow : Window
     {
+        SalePageViewModel _model;
         public PrintCheckWindow(SalePageViewModel model)
         {
             InitializeComponent();
+            _model = model;
             DataContext = new PrintCheckWindowViewModel(model);
             DateTimeStr.Text = DateTime.UtcNow.ToString("HH:mm dd.MMMM.yyyy");
         }
@@ -44,11 +46,13 @@ namespace Apache.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PrintMethod();
+            _model!._viewModel!.ExecuteShowTablePageCommand("");
             Close();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            _model!._viewModel!.ExecuteShowTablePageCommand("");
             Close();
         }
     }
