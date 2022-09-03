@@ -57,5 +57,6 @@
                 <mt:PackIcon Width="50" Height="50" Kind="AccountArrowRight"/>
             </Button>
         </Grid>
+        <Button Height="40" Click="Button_Click" Background="Transparent" Width="40"/>
     </Grid>
 </Window>

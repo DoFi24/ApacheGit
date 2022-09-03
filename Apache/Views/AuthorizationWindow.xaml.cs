@@ -13,5 +13,10 @@ namespace Apache.Views
             InitializeComponent();
             DataContext = new AuthorizationWindowViewModel(this);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

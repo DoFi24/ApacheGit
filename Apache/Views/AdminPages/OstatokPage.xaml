@@ -56,7 +56,6 @@
                           x:Name="datagrid" Style="{DynamicResource KassaPageDataGrid}" RowHeight="50">
                 <DataGrid.Columns>
                     <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Name}" Header="Наименование"/>
-                    <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Category}" Header="Категория"/>
                     <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Count}" Header="Количество"/>
                 </DataGrid.Columns>
             </DataGrid>

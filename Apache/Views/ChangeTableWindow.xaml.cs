@@ -26,8 +26,18 @@ namespace Apache.Views
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            _vm._currentCheck!.PlacesId = (TableCollection.SelectedItem as Places)!.Id;
-            _vm._viewModel!.ExecuteShowTablePageCommand("");
+            if (TableCollection.SelectedItem is null)
+            {
+                MessageBox.Show("Выберите стол!");
+                return;
+            }
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                var check = db.Checks!.First(s=>s.Id == _vm._currentCheck!.Id);
+                check.PlacesId = (TableCollection.SelectedItem as Places)!.Id;
+                db.SaveChanges();
+            }
+            _vm!._viewModel!.ExecuteShowTablePageCommand("");
             Close();
         }
         private void Button_Click(object sender, RoutedEventArgs e)

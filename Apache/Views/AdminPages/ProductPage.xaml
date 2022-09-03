@@ -13,10 +13,6 @@
     <TabControl>
         <TabItem Header="Продукты">
             <Grid Background="White">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="107*"/>
-                    <ColumnDefinition Width="698*"/>
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="6*" />

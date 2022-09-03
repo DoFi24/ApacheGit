@@ -126,7 +126,7 @@
                           SelectedItem="{Binding SelectedProductPrihod,UpdateSourceTrigger=PropertyChanged}"
                           x:Name="datagrid" Style="{DynamicResource KassaPageDataGrid}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Products.Name}" Header="Товар"/>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding ProductsName}" Header="Товар"/>
                         <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Quantity}" Header="Количество"/>
                         <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Price}" Header="Цена"/>
                         <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding PrihodDate,StringFormat=dd.MM.yyyy}" Header="Дата"/>

@@ -1,5 +1,6 @@
 ﻿using Apache.Infrastructure.Commands;
 using Apache.Views;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -17,7 +18,6 @@ namespace Apache.ViewModels
             _viewModel = viewModel;
             _currentPlace = places;
 
-            CloseCheckCommand = new RelayCommand(CloseCheckCommandExecute);
             DeleteCheckCommand = new RelayCommand(DeleteCheckCommandExecute);
             SaveInBaseCommand = new RelayCommand(SaveInBaseCommandExecute);
             PrintPreviewCheckCommand = new RelayCommand(PrintPreviewCheckCommandExecute);
@@ -29,7 +29,6 @@ namespace Apache.ViewModels
 
             if (currentCheck is not null)
             {
-                
                 this._currentCheck = currentCheck;
                 GetFromCheck();
             }
@@ -40,7 +39,6 @@ namespace Apache.ViewModels
         }
 
         #region Commands
-        public ICommand CloseCheckCommand { get; set; }
         public ICommand DeleteCheckCommand { get; set; }
         public ICommand SaveInBaseCommand { get; set; }
         public ICommand PrintPreviewCheckCommand { get; set; }
@@ -182,63 +180,6 @@ namespace Apache.ViewModels
         #endregion
 
         #region MethCommand
-        public async void CloseCheckCommandExecute(object o)
-        {
-            if (InSaleProductsCollection!.Any())
-                await using (ApplicationContext db = new ApplicationContext())
-                {
-                    if (_currentCheck is null)
-                    {
-                        db.Checks!.Add(
-                            new Checks
-                            {
-                                IsActive = 1,
-                                StaffsId = StaticFields.currrentStaff.Id,
-                                TotalSum = ItogPrice,
-                                PlacesId = _currentPlace!.Id,
-                                PrintDate = System.DateTime.UtcNow,
-                            });
-                        db.SaveChanges();
-
-                        _currentCheck = db.Checks.OrderBy(a => a.Id).Last();
-
-                        db.CheckDetails!.AddRange(InSaleProductsCollection!
-                                .Select(s => new CheckDetails
-                                {
-                                    ChecksId = _currentCheck.Id,
-                                    Discount = s.Discount,
-                                    Price = s.Price,
-                                    ProductsPrihodId = s.Products!.Id,
-                                    Quantity = s.Quantity,
-                                }));
-                    }
-                    else
-                    {
-                        var check = db.Checks!.First(s => s.Id == _currentCheck.Id);
-                        check.StaffsId = StaticFields.currrentStaff.Id;
-                        check.IsActive = 1;
-                        check.TotalSum = ItogPrice;
-                        check.PlacesId = _currentPlace!.Id;
-                        check.PrintDate = System.DateTime.UtcNow;
-
-                        db.CheckDetails!.RemoveRange(db.CheckDetails.Where(cd => cd.ChecksId == check.Id));
-                        db.SaveChanges();
-                        db.CheckDetails!.AddRange(InSaleProductsCollection!
-                                .Select(s => new CheckDetails
-                                {
-                                    ChecksId = check.Id,
-                                    Discount = s.Discount,
-                                    Price = s.Price,
-                                    ProductsPrihodId = s.Products!.Id,
-                                    Quantity = s.Quantity,
-                                }));
-                    }
-                    db.SaveChanges();
-                    new PrintCheckWindow(this).ShowDialog();
-                }
-            else
-                MessageBox.Show("Выберите товары для сохранения!");
-        }
         public async void DeleteCheckCommandExecute(object o)
         {
             await using (ApplicationContext db = new())
@@ -252,195 +193,120 @@ namespace Apache.ViewModels
                 _viewModel!.ExecuteShowTablePageCommand("");
             }
         }
-        public async void SaveInBaseCommandExecute(object o)
+        public void SaveInBaseCommandExecute(object o)
         {
             if (InSaleProductsCollection!.Any())
-                await using (ApplicationContext db = new ApplicationContext())
-                {
-                    if (_currentCheck is null)
-                    {
-                        db.Checks!.Add(
-                            new Checks
-                            {
-                                IsActive = 0,
-                                StaffsId = StaticFields.currrentStaff.Id,
-                                TotalSum = ItogPrice,
-                                PlacesId = _currentPlace!.Id,
-                                PrintDate = System.DateTime.UtcNow,
-                            });
-
-                        db.SaveChanges();
-
-                        _currentCheck = db.Checks.OrderBy(a => a.Id).Last();
-
-                        db.CheckDetails!.AddRange(InSaleProductsCollection!
-                                .Select(s => new CheckDetails
-                                {
-                                    ChecksId = _currentCheck.Id,
-                                    Discount = s.Discount,
-                                    Price = s.Price,
-                                    ProductsPrihodId = s.Products!.Id,
-                                    Quantity = s.Quantity,
-                                }));
-                    }
-                    else
-                    {
-                        var check = db.Checks!.First(s => s.Id == _currentCheck.Id);
-                        check.StaffsId = StaticFields.currrentStaff.Id;
-                        check.IsActive = 0;
-                        check.TotalSum = ItogPrice;
-                        check.PlacesId = _currentPlace!.Id;
-                        check.PrintDate = System.DateTime.UtcNow;
-
-                        db.CheckDetails!.RemoveRange(db.CheckDetails.Where(cd => cd.ChecksId == check.Id));
-                        db.SaveChanges();
-                        db.CheckDetails!.AddRange(InSaleProductsCollection!
-                                .Select(s => new CheckDetails
-                                {
-                                    ChecksId = check.Id,
-                                    Discount = s.Discount,
-                                    Price = s.Price,
-                                    ProductsPrihodId = s.Products!.Id,
-                                    Quantity = s.Quantity,
-                                }));
-                    }
-                    db.SaveChanges();
-                    MessageBox.Show("Успешно!");
-                    _viewModel!.ExecuteShowTablePageCommand("");
-                }
+            {
+                SaveProducsInBase(0);
+                _viewModel!.ExecuteShowTablePageCommand("");
+            }
             else
                 MessageBox.Show("Выберите товары для сохранения!");
         }
-        public async void PrintPreviewCheckCommandExecute(object o)
+        public void PrintPreviewCheckCommandExecute(object o)
         {
             if (InSaleProductsCollection!.Any())
-                await using (ApplicationContext db = new ApplicationContext())
-                {
-                    if (_currentCheck is null)
-                    {
-                        db.Checks!.Add(
-                            new Checks
-                            {
-                                IsActive = 0,
-                                StaffsId = StaticFields.currrentStaff.Id,
-                                TotalSum = ItogPrice,
-                                PlacesId = _currentPlace!.Id,
-                                PrintDate = System.DateTime.UtcNow,
-                            });
-                        db.SaveChanges();
-
-                        _currentCheck = db.Checks.OrderBy(a => a.Id).Last();
-
-                        db.CheckDetails!.AddRange(InSaleProductsCollection!
-                                .Select(s => new CheckDetails
-                                {
-                                    ChecksId = _currentCheck.Id,
-                                    Discount = s.Discount,
-                                    Price = s.Price,
-                                    ProductsPrihodId = s.Products!.Id,
-                                    Quantity = s.Quantity,
-                                }));
-                    }
-                    else
-                    {
-                        var check = db.Checks!.First(s => s.Id == _currentCheck.Id);
-                        check.StaffsId = StaticFields.currrentStaff.Id;
-                        check.IsActive = 0;
-                        check.TotalSum = ItogPrice;
-                        check.PlacesId = _currentPlace!.Id;
-                        check.PrintDate = System.DateTime.UtcNow;
-
-                        db.CheckDetails!.RemoveRange(db.CheckDetails.Where(cd => cd.ChecksId == check.Id));
-                        db.SaveChanges();
-                        db.CheckDetails!.AddRange(InSaleProductsCollection!
-                                .Select(s => new CheckDetails
-                                {
-                                    ChecksId = check.Id,
-                                    Discount = s.Discount,
-                                    Price = s.Price,
-                                    ProductsPrihodId = s.Products!.Id,
-                                    Quantity = s.Quantity,
-                                }));
-                    }
-                    db.SaveChanges();
-                }
+                SaveProducsInBase(0);
             else
                 MessageBox.Show("Выберите товары для сохранения!");
             new PreviewPrintCheckWindow(this).ShowDialog();
         }
         public void ChangeTableCommandExecute(object o)
         {
-            new ChangeTableWindow(this).ShowDialog();
+            if (_currentPlace is not null)
+                new ChangeTableWindow(this).ShowDialog();
+            else
+                MessageBox.Show("Сохраните чек перед сменой стола!");
         }
         public void ShowCategoryCommandExecute(object o)
         {
             ChangeVisibile(false);
         }
-        public async void EndPaymendCommandExecute(object o)
+        public void EndPaymendCommandExecute(object o)
         {
             if (InSaleProductsCollection!.Any())
-                await using (ApplicationContext db = new ApplicationContext())
-                {
-                    if (_currentCheck is null)
-                    {
-                        db.Checks!.Add(
-                            new Checks
-                            {
-                                IsActive = 1,
-                                StaffsId = StaticFields.currrentStaff.Id,
-                                TotalSum = ItogPrice,
-                                PlacesId = _currentPlace!.Id,
-                                PrintDate = System.DateTime.UtcNow,
-                            });
-                        db.SaveChanges();
-
-                        _currentCheck = db.Checks.OrderByDescending(a => a.Id).Last();
-
-                        db.CheckDetails!.AddRange(InSaleProductsCollection!
-                                .Select(s => new CheckDetails
-                                {
-                                    ChecksId = _currentCheck.Id,
-                                    Discount = s.Discount,
-                                    Price = s.Price,
-                                    ProductsPrihodId = s.Products!.Id,
-                                    Quantity = s.Quantity,
-                                }));
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        var check = db.Checks!.First(s => s.Id == _currentCheck.Id);
-                        check.StaffsId = StaticFields.currrentStaff.Id;
-                        check.IsActive = 1;
-                        check.TotalSum = ItogPrice;
-                        check.PlacesId = _currentPlace!.Id;
-                        check.PrintDate = System.DateTime.UtcNow;
-
-                        db.CheckDetails!.RemoveRange(db.CheckDetails.Where(cd => cd.ChecksId == check.Id));
-                        db.SaveChanges();
-                        db.CheckDetails!.AddRange(InSaleProductsCollection!
-                                .Select(s => new CheckDetails
-                                {
-                                    ChecksId = db.Checks!.OrderByDescending(a => a.Id).Last().Id,
-                                    Discount = s.Discount,
-                                    Price = s.Price,
-                                    ProductsPrihodId = s.Products!.Id,
-                                    Quantity = s.Quantity,
-                                }));
-                    }
-                    db.SaveChanges();
-                }
+            {
+                SaveProducsInBase(1);
+                DeleteProduct();
+            }
             else
                 MessageBox.Show("Выберите товары для сохранения!");
             new PrintCheckWindow(this).ShowDialog();
         }
+
+        private async void SaveProducsInBase(int index)
+        {
+            await using (ApplicationContext db = new ApplicationContext())
+            {
+                if (_currentCheck is null)
+                {
+                    db.Checks!.Add(
+                        new Checks
+                        {
+                            IsActive = index,
+                            StaffsId = StaticFields.currrentStaff.Id,
+                            TotalSum = ItogPrice,
+                            PlacesId = _currentPlace!.Id,
+                            PrintDate = System.DateTime.UtcNow,
+                        });
+                    db.SaveChanges();
+
+                    _currentCheck = db.Checks.OrderBy(a => a.Id).Last();
+
+                    db.CheckDetails!.AddRange(InSaleProductsCollection!
+                            .Select(s => new CheckDetails
+                            {
+                                ChecksId = _currentCheck.Id,
+                                Discount = s.Discount,
+                                Price = s.Price,
+                                ProductsPrihodId = s.Products!.Id,
+                                Quantity = s.Quantity,
+                            }));
+                }
+                else
+                {
+                    var check = db.Checks!.First(s => s.Id == _currentCheck.Id);
+                    check.StaffsId = StaticFields.currrentStaff.Id;
+                    check.IsActive = index;
+                    check.TotalSum = ItogPrice;
+                    check.PlacesId = _currentPlace!.Id;
+                    check.PrintDate = System.DateTime.UtcNow;
+
+                    db.CheckDetails!.RemoveRange(db.CheckDetails.Where(cd => cd.ChecksId == check.Id));
+                    db.SaveChanges();
+                    db.CheckDetails!.AddRange(InSaleProductsCollection!
+                            .Select(s => new CheckDetails
+                            {
+                                ChecksId = _currentCheck.Id,
+                                Discount = s.Discount,
+                                Price = s.Price,
+                                ProductsPrihodId = s.Products!.Id,
+                                Quantity = s.Quantity,
+                            }));
+                }
+                db.SaveChanges();
+            }
+        }
+        private async void DeleteProduct()
+        {
+            await using (ApplicationContext db = new())
+            {
+                foreach (var item in InSaleProductsCollection!)
+                {
+                    var product = db.ProductsPrihod!.First(s => s.Id == item.Id);
+                    product.ComeQuantity -= item.Quantity;
+                }
+                db.SaveChanges();
+            }
+        }
+
         private void GetFromCheck()
         {
             ApplicationContext db = new ApplicationContext();
-            var products = db.CheckDetails!.Where(s=>s.ChecksId == _currentCheck!.Id).ToList();
+            var products = db.CheckDetails!.Where(s => s.ChecksId == _currentCheck!.Id).ToList();
             foreach (var item in products)
             {
-                InSaleProductsCollection!.Add(new SaleProduct 
+                InSaleProductsCollection!.Add(new SaleProduct
                 {
                     Id = item.ProductsPrihodId,
                     Discount = item.Discount,

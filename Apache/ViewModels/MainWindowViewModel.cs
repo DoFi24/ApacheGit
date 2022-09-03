@@ -64,7 +64,7 @@ namespace Apache.ViewModels
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                var check = db.Checks!.Where(a => a.PlacesId == table.Id && a.IsActive == 0);
+                var check = db.Checks!.Where(a =>a.IsActive == 0 && a.PlacesId == table.Id);
                 if (check.Any())
                 {
                     _window!.NavigationFrame.Navigate(new SalePage(this, table, check.First()));

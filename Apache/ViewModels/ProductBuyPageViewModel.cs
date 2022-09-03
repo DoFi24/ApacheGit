@@ -25,7 +25,7 @@ namespace Apache.ViewModels
         private int _currentPageIndexProductBuy = 1;
         private int _pageCountProductBuy = 1;
         private int _productBuyCount = 1;
-        private int _productBuyPrice = 1;
+        private int _productBuyPrice = 0;
 
         private Products _selectedProduct = new();
         private ProductsPrihod _selectedProductPrihod = new();
@@ -132,11 +132,14 @@ namespace Apache.ViewModels
                             Price = ProductBuyPrice,
                             ProductsId = SelectedProduct.Id,
                             Quantity = ProductBuyCount,
-                            ComeQuantity = ProductBuyCount
+                            ComeQuantity = ProductBuyCount,
+                            ProductsName = SelectedProduct!.Name!
                         });
                     db.SaveChanges();
                     MessageBox.Show("Успешно");
                     LoadProducts();
+                    ProductBuyCount = 1;
+                    ProductBuyPrice = 0;
                 }
             }
             catch
@@ -207,6 +210,11 @@ namespace Apache.ViewModels
                 ProductsPrihodCollection = new ObservableCollection<ProductsPrihod>(db.ProductsPrihod!.Take(12));
                 PageCountProductBuy = Convert.ToInt32(Math.Ceiling(db.ProductsPrihod!.Count() / 12m));
             }
+        }
+
+        private void ReturnPrihods() 
+        {
+        
         }
     }
 }

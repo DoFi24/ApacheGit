@@ -12,7 +12,7 @@ namespace Apache.Views.AdminPages
         public SettingsPage()
         {
             InitializeComponent();
-           
+            GetSettings();
         }
         private async void GetSettings()
         {
