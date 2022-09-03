@@ -1,6 +1,4 @@
-﻿using Apache.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Windows;
 
 namespace Apache.Infrastructure
@@ -34,8 +32,9 @@ namespace Apache.Infrastructure
         //}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;user=root;password=;database=apachiDB;",
-                 new MySqlServerVersion(new Version(5, 7, 33))
+            var stri = "server=192.168.8.67;user=root;password=;database=apachiDB;";
+            var autoVersion = ServerVersion.AutoDetect(stri);
+            optionsBuilder.UseMySql(stri, autoVersion
              );
         }
     }

@@ -44,6 +44,9 @@
                 <RadioButton Uid="4" Click="ChangePageClick" Style="{DynamicResource MainWindowMenuRadioButton}">
                     <mt:PackIcon Height="50px" Width="50px" Kind="History"/>
                 </RadioButton>
+                <RadioButton Uid="6" Click="ChangePageClick" Style="{DynamicResource MainWindowMenuRadioButton}">
+                    <mt:PackIcon Height="50px" Width="50px" Kind="ChartBar"/>
+                </RadioButton>
                 <RadioButton Uid="5" Click="ChangePageClick" Style="{DynamicResource MainWindowMenuRadioButton}">
                     <mt:PackIcon Height="50px" Width="50px" Kind="Settings"/>
                 </RadioButton>

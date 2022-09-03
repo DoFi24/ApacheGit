@@ -38,6 +38,10 @@ namespace Apache.Views
                 case "5":
                     ChangeWindow(new SettingsPage());
                     break;
+                default:
+                    
+                    ChangeWindow(new StatisticPage());
+                    break;
             }
         }
         private void ChangeWindow(Page page) 

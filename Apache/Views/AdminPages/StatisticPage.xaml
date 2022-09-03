@@ -8,6 +8,7 @@
       xmlns:mt="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="850" d:DesignWidth="810"
       d:DataContext="{d:DesignInstance vm:StatisticPageViewModel}"
+      
       mc:Ignorable="d" 
       Title="AccountPage">
     <Grid Background="White">
@@ -21,11 +22,15 @@
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.ColumnSpan="2" >
+
+            <CheckBox Grid.Column="3" Content="интервал дат" IsChecked="{Binding DateInterval}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 50 0"/>
+
+            <Grid Grid.Column="2" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15" />
                     <ColumnDefinition Width="1*" />
@@ -38,12 +43,12 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Выбрать" Grid.Row="1" Grid.Column="1" 
                            Style="{DynamicResource MainSalePageTextBlock}"/>
-                <ComboBox Grid.Column="1" ItemsSource="{Binding DayWeekMonthSelectionCollection,UpdateSourceTrigger=PropertyChanged}"
+                <ComboBox Grid.Column="1"  ItemsSource="{Binding DaysSettings,UpdateSourceTrigger=PropertyChanged}"
                           Grid.Row="1" MaxWidth="500" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectedItem="{Binding SelectedDWM, UpdateSourceTrigger=PropertyChanged}" 
                           Template="{DynamicResource MainPageComboBox}" FontSize="18">
                 </ComboBox>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="15" />
                     <ColumnDefinition Width="1*" />
@@ -91,10 +96,10 @@
                 <DatePicker Grid.Column="1" VerticalAlignment="Bottom" Width="220" 
                             HorizontalAlignment="Left" Height="40" Grid.Row="1"/>
             </Grid>
-            <Button Width="220" BorderThickness=".5" VerticalAlignment="Center" Height="50"
-                                Command="{Binding SearchStatisticCommand}" FontSize="26"
+            <Button Width="200" BorderThickness=".5" VerticalAlignment="Center" Height="50"
+                                Command="{Binding SearchCommand}" FontSize="26"
                                 Background="#4DBAE9" Content="Поиск" FontWeight="DemiBold"
-                        Margin="0 0 10 0" Grid.Column="2" />
+                        Margin="0 0 10 0" Grid.Column="3" Grid.Row="1"/>
         </Grid>
         <Border Margin="10 0 10 5" Background="#4DBAE9" 
                 CornerRadius="17" Grid.Row="1">
@@ -138,14 +143,14 @@
                     <mt:PackIcon Kind="PointOfSale" Width="45px" Height="45px" HorizontalAlignment="Right" 
                                  Margin="0 -15 20 0" VerticalAlignment="Center" Foreground="White"/>
                 </Grid>
-                <DataGrid Grid.Row="1" Margin="3" ItemsSource="{Binding UsersCollection,UpdateSourceTrigger=PropertyChanged}"
+                <DataGrid Grid.Row="1" Margin="3" ItemsSource="{Binding StatisticCollection,UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedUser,UpdateSourceTrigger=PropertyChanged}"
                           x:Name="datagrid" Style="{DynamicResource KassaPageDataGrid}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding ProductName}" Header="Ф.И.О."/>
-                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding PinCode}" Header="Пин-код"/>
-                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding Role}" Header="Роль"/>
-                        <DataGridTemplateColumn MinWidth="135" Width="150">
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding ProductName}" Header="Продукт"/>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding ProductsSold}" Header="Количество"/>
+                        <DataGridTextColumn FontSize="18" Width="*" Binding="{Binding ProductsSoldPrice}" Header="Цена продажи"/>
+                        <!--<DataGridTemplateColumn MinWidth="135" Width="150">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Background="#EA5567" 
@@ -157,7 +162,7 @@
                                                         Style="{DynamicResource MainSalePageButton}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        </DataGridTemplateColumn>-->
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

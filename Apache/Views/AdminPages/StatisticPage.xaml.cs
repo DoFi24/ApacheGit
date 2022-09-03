@@ -15,14 +15,12 @@ using System.Windows.Shapes;
 
 namespace Apache.Views.AdminPages
 {
-    /// <summary>
-    /// Логика взаимодействия для StatisticPage.xaml
-    /// </summary>
     public partial class StatisticPage : Page
     {
         public StatisticPage()
         {
             InitializeComponent();
+            DataContext = new StatisticPageViewModel();
         }
     }
 }
